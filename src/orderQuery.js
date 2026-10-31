@@ -4,10 +4,9 @@ const { AppError } = require("./errors");
 
 function getOrderDetail(ctx, userId, orderId) {
   const order = ctx.store.orders.get(orderId);
-  if (!order) throw new AppError("NOT_FOUND", "주문을 찾을 수 없습니다", { orderId });
+  if (!order || order.userId !== userId) throw new AppError("NOT_FOUND", "주문을 찾을 수 없습니다", { orderId });
   const items = order.items.map((i) => {
-    const product = ctx.store.products.get(i.productId);
-    const unitPrice = product ? product.price : i.unitPrice;
+    const unitPrice = i.unitPrice;
     return { ...i, unitPrice, lineTotal: unitPrice * i.quantity };
   });
   return {
@@ -22,14 +21,14 @@ function getOrderDetail(ctx, userId, orderId) {
 
 function representativeName(order) {
   const first = order.items[0].name;
-  return order.items.length > 1 ? `${first} 외 ${order.items.length}건` : first;
+  return order.items.length > 1 ? `${first} 외 ${order.items.length - 1}건` : first;
 }
 
 function listOrders(ctx, userId, { page = 1, pageSize = 10 } = {}) {
   const mine = [...ctx.store.orders.values()]
     .filter((o) => o.userId === userId)
-    .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-  const start = page * pageSize;
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt) || b.id.localeCompare(a.id));
+  const start = (page - 1) * pageSize;
   return {
     page,
     pageSize,
