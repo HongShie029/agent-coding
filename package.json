@@ -1,0 +1,19 @@
+{
+  "name": "minimall-lab",
+  "version": "1.0.0",
+  "description": "AI 활용 소프트웨어 공학 5강 - 에이전틱 코딩 미니 프로젝트 (MiniMall 핵심 주문 흐름)",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:m1": "node --test test/m1_cart.test.js",
+    "test:m2": "node --test test/m2_order.test.js",
+    "test:m3": "node --test test/m3_payment.test.js",
+    "test:m4": "node --test test/m4_cancel.test.js",
+    "test:m5": "node --test test/m5_review.test.js test/m5_student.test.js",
+    "test:c": "node --test test/c_expiry.test.js"
+  }
+}
