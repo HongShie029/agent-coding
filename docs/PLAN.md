@@ -15,10 +15,10 @@
 ## 2. 작업 계획
 | 미션 | 쪼갠 작업 단위(함수 · 수락 기준) | 확인 방법(테스트) | 예상 위험 |
 |---|---|---|---|
-| M1 |  | npm run test:m1 |  |
-| M2 |  | npm run test:m2 |  |
-| M3 |  | npm run test:m3 |  |
-| M4 |  | npm run test:m4 |  |
+| M1 | getCart→addToCart→changeQuantity→removeItem순으로 나누어 하나씩 작업| npm run test:m1 | 상품 수량 및 재고 처리 오류 |
+| M2 | createOrder→canTransition→changeStatus순으로 나누어 하나씩 작업 | npm run test:m2 | 장바구니 정보와 주문 정보 불일치 |
+| M3 | async payOrder라는 하나의 함수를 작성 | npm run test:m3 | 결제 상태 변경 및 중복 결제 문제 |
+| M4 | async cancelOrder라는 하나의 함수를 작성 | npm run test:m4 | 취소 가능 여부 판단 및 환불 상태 불일치 |
 
 ## 3. 가정 (계약서에 없는 부분을 어떻게 해석했는가)
 -
